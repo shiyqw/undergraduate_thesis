@@ -19,7 +19,7 @@
 \renewcommand{\bibname}{参考文献} 
 
 \usepackage{geometry}
-\geometry{left=3.5cm,right=3.5cm,top=3.5cm,bottom=3.5cm}
+\geometry{left=3.5cm,right=3.5cm,top=4cm,bottom=4cm}
 
 %\titleformat{\chapter}[display] {\Huge\bfseries} {Chapter \thechapter} {1pc} {\vspace{1pc} \Huge}
 %\titleformat*{\section}{\LARGE\bf}
@@ -65,7 +65,7 @@
 
 %\newpage
 %\newpage
-%\renewcommand{\baselinestretch}{1.2}
+\renewcommand{\baselinestretch}{1.5}
 %\Large
 
 % Done by 04/25
@@ -91,27 +91,59 @@ The purpose of this thesis is to design a technique to accelerate the mutation a
 % Done by 04/25
 \chapter{引言}
 \section{变异测试}
-变异测试是什么？
-通常来说，变异测试包括，
-高阶变异测试。
-变异测试有许多应用场景。
-\section{变异测试的瓶颈}
-变异测试有一个重要的瓶颈，特别慢。
-更长远地说，影响可扩展性。
-\section{相关工作}
-已有一些加速技术
-\subsection{Mutation Schemata}
-\subsection{Weak Mutation}
-\subsection{Major Framework}
-图X显示了XXX
-现有的加速技术有一个共同的问题，都是基于静态分析的。
-\section{本论文的目的}
-本论文提出了动态变异测试的相关技术。纯动态的方式对程序进行分析。
-本论文对进行了复现和横向对比。
-在本科生科研阶段，我也尝试过，不同点。
+变异测试是一种软件测试方法，也是一种重要的程序分析技术\cite{demillo1978hints,hamlet1977testing}。
+图X描述了变异测试的整个流程。给定一个程序，变异测试通过一些预定义的变异算子对程序进行微小的修改，产生一个程序集合。此集合中的每个程序和原程序都有细微的差别，这些程序称之为原程序的变异体。随后变异测试在这个程序集合的所有程序上对已有的测试集数据进行测试，并统计执行过程中的信息和执行结果进行下一步分析。
 
-% Done by 04/27
-\chapter{ 变异测试的动态加速技术}
+
+变异测试的主要用途是帮助测试员评价测试集的质量\cite{jia2011analysis}。按照通常的理解：一个好的测试集能够检测出程序中所有潜在的错误。变异测试就是这个过程的逆向过程：每一个变异体可以看成一个有潜在错误的程序，如果一个测试集在任何一个变异体上都无法通过，那么这个测试集就可以视作是一个好的测试集。变异测试还有其他的用途，例如缺陷定位~\cite{papadakis2012using,moon2014ask,zhang2013injecting}和缺陷修复~\cite{GenProg,PAR,RSRepair,AE}等。
+
+常见的变异算子包括：符号变异（逻辑符号变异，算数符号变异），数值变异，语句级变异（插入或删除一条指令），过程级变异（函数的替换）。变异测试生成的大部分变异体为一阶变异体（即变异体和原程序只有一处不同），有些时候根据需要，变异测试也会生成高阶变异体（即变异体和原程序有几处不同）。
+高阶变异测试。
+
+\section{变异测试的瓶颈}
+变异测试有一个重要的瓶颈：可扩展性较差。假设一个程序的测试集中有$m$组输入，而变异测试在这个程序上生成了$n$个变异体，那么整个变异测试的执行过程需要在$n\times m$倍的程序执行时间。虽然$m$是固定的，但是当我们对变异算子进行扩展的时候，变异体数量$n$就会随之膨胀，进一步导致整个变异测试的时间就会显著增加。这也是变异测试在实践中只是被小规模采用的原因。
+
+\section{相关工作}
+为了解决可扩展性的问题，近年来研究人员已经提出了各种不同的方法来加速变异测试的执行。这些方法可以分为有损加速和无损加速。
+
+\subsection{Weak Mutation}
+Weak Mutation\cite{howden1982weak}是一个典型的有损加速技术，Weak Mutation认为只要变异体在某一个测试用例上产生了和原程序不同的系统状态，那么就认为这个这个测试用例无法通过此变异体。这显然是一个有损的方法（因为有些变异体即使产生了不同的系统状态，也不一定会产生错误的结果）。
+\subsection{Mutation Sampling}
+Mutation Sampling~\cite{wong1995reducing}是另一种有损加速技术，它在所有变异体中选取一些具有代表性的变异体，并且只在这些变异体上进行测试，来减少执行时间。
+\subsection{Major Framework}
+Major Framework~\cite{just2014efficient}是目前为止最快的无损加速工具。它通过静态分析的方式结合测试集中每组测试用例的数据对程序进行预处理，对剩变异体进行等价类划分。Major Framework按照下面三个标准进行等价类划分：
+
+\begin{itemize}
+\item 如果一个测试用例没有覆盖到某个变异体的变异点语句，那么这个变异体就可以认为是和原程序等价的。
+\item 如果两个变异体所产生的变异点在同一个复合表达式上，而这个表达式的值是一样的，那么这两个变异体就可以认为是等价的。
+\item 如果两个变异体在一个测试用例上在变异点语句上的所有执行结果都相同，那么这两个变异体就可以认为是等价的。
+\end{itemize}
+
+划分完成后，Major Framework逐一执行测试用例的每组测试用例。在一个等价类中任意选出一个一个变异体执行该测试用例，而不需要在其他变异体上执行了。这样就每个测试用例就可以节省很多等价的重复执行，节省了时间。
+
+\subsection{Mutation Schemata}
+Mutation Schemata从编译时间上加速了变异测试。由于每个变异体都是一个新的程序，所以编译变异体需要大量的时间。Mutation Schemata将所有的变异体整合到了同一个程序上，只编译一次，节省了大量的编译时间。
+
+\subsection{Test Prioritization}
+Test Prioritization~\cite{zhang2013faster}针对不同变异体对测试集中的不同测试用例进行了重排，使得变异体尽可能早地被检测出，这样就不用执行测试集中的其他测试用例了。此方法并没有具体工具的实现。
+
+
+\section{本论文的目标}
+以上的加速技术有一个共同的不足：它们都是静态加速的方式。任意给定两个变异体，在发生变异的变异点之前，这两个程序在同一个输入上的执行过程是完全相同的，而静态加速的方法无法消除程序执行过程中（图X的X部分）的冗余部分，导致这个过程被重复执行了两遍。
+
+本论文的目标是设计一个变异测试的动态加速技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。与静态加速技术不同，此动态加速技术从一个包含了所有变异体的程序开始执行，每遇到一个包含了变异体的语句，就对此语句以及所有的变异语句作动态分析，根据分析结果进行等价类划分。当且仅当有新的等价类诞生的时候（表示此变异体集合会产生新的系统状态），原程序会创建一个新的进程，在这个进程中执行新的等价类的变异体。这个方法是无损的，这个方法有以下两个优点：
+\begin{itemize}
+\item 不同的变异体在变异点之前共享同一个执行过程，从而消除了执行过程中的冗余部分。从而节省了大量的执行时间。
+\item 此方法将所有变异整合到了同一个程序中，无需编译多次，这是Mutation Schemata的优点。在动态执行过程中可以根据即时的结果进行等价类的划分，复用等价变异体的执行，这是Major Framework的优点。所以此方法集合了现有的两大静态加速技术，进一步提升了加速比。
+\end{itemize}
+
+本论文定义了支持变异测试的抽象模型，并且在这个模型上给出了静态变异测试的算法，设计了动态变异测试的算法。我们在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并同时在LLVM的框架上复现了现有的加速工具（Schemata，Major Framework）用来进行横向对比和验证。实验表明动态加速技术加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。
+
+\section*{说明}
+我的本科生科研的课题也是变异测试的加速，本论文和本科生科研论文的主要区别在于等价类划分算法的实现和IO支持上。本科生科研时我采用的等价类划分使用的是复现的Major Framework的划分方法，而本论文则使用的是纯动态的自行设计的等价类划分方法；另一方面，本论文实现的工具已经支持下涉及读写独立的文件IO的程序，而在本科生科研实现的工具中并不支持。在实验的规模上，本论文也超出了本科生科研时后的规模。总的来说，本论文在本科生科研的成果上做了许多扩展和修改工作。
+
+% Done by 04/27 10+
+\chapter{ 变异测试的动态加速技术}.5
 \section{加速原理}
 不同的变异测试
 总的来说，通过动态的方法，加速了执行，X的阶段。
@@ -126,8 +158,8 @@ XXX
 \subsubsection{核心算法}
 \subsubsection{分类算法}
 
-% Done by 04/28
-\chapter{工具实现}
+% Done by 04/28 4
+\chapter{工具实现} 
 选择C语言，
 LLVM上进行了实现。
 新增两个Pass，插桩，库，执行，图X
@@ -136,33 +168,23 @@ LLVM上进行了实现。
 \section{动态分析算法的库}
 \section{文件IO的支持}
 
-% Done by 04/29
+% Done by 04/29 4
 \chapter{实验测试}
 \section{实验对象}
 \section{实验流程}
 \section{实验结果}
 
-% Done by 04/29
+% Done by 04/29 3~4
 \chapter{未来扩展：软件产品线测试}
 抄写熊老师
 
-% Done by 04/30
+% Done by 04/30 1
 \chapter{结论}
 重写一下Intro
 
 
-
-%\bibliography{bib.bib}
-\begin{thebibliography}{99}
-\addcontentsline{toc}{chapter}{Reference}
-\bibitem{korea}
-Florence Lowe-Lee, 
-``Is Korea Ready for the Demographic Revolution?''
-\newblock The KEI Exchange, 2009
-
-\end{thebibliography}
-%\addcontentsline{toc}{chapter}{List of Figures}
-%\listoffigures
+\bibliographystyle{abbrv}
+\bibliography{reference}
 \chapter*{致谢}
 \addcontentsline{toc}{chapter}{致谢}
 \end{document}

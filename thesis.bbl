@@ -1,0 +1,82 @@
+\begin{thebibliography}{10}
+
+\bibitem{demillo1978hints}
+R.~A. DeMillo, R.~J. Lipton, and F.~G. Sayward.
+\newblock Hints on test data selection: Help for the practicing programmer.
+\newblock {\em Computer}, 11(4):34--41, 1978.
+
+\bibitem{hamlet1977testing}
+R.~G. Hamlet.
+\newblock Testing programs with the aid of a compiler.
+\newblock {\em Software Engineering, IEEE Transactions on}, SE-3(4):279--290,
+  1977.
+
+\bibitem{howden1982weak}
+W.~E. Howden.
+\newblock Weak mutation testing and completeness of test sets.
+\newblock {\em IEEE Transactions on Software Engineering}, SE-8(4):371--379,
+  1982.
+
+\bibitem{jia2011analysis}
+Y.~Jia and M.~Harman.
+\newblock An analysis and survey of the development of mutation testing.
+\newblock {\em Software Engineering, IEEE Transactions on}, 37(5):649--678,
+  2011.
+
+\bibitem{just2014efficient}
+R.~Just, M.~D. Ernst, and G.~Fraser.
+\newblock Efficient mutation analysis by propagating and partitioning infected
+  execution states.
+\newblock In {\em ISSTA}, pages 315--326. ACM, 2014.
+
+\bibitem{PAR}
+D.~Kim, J.~Nam, J.~Song, and S.~Kim.
+\newblock Automatic patch generation learned from human-written patches.
+\newblock In {\em ICSE '13}, pages 802--811, 2013.
+
+\bibitem{moon2014ask}
+S.~Moon, Y.~Kim, M.~Kim, and S.~Yoo.
+\newblock Ask the mutants: Mutating faulty programs for fault localization.
+\newblock In {\em ICST}, pages 153--162, 2014.
+
+\bibitem{papadakis2012using}
+M.~Papadakis and Y.~Le~Traon.
+\newblock Using mutants to locate" unknown" faults.
+\newblock In {\em ICST}, pages 691--700, 2012.
+
+\bibitem{RSRepair}
+Y.~Qi, X.~Mao, Y.~Lei, Z.~Dai, and C.~Wang.
+\newblock The strength of random search on automated program repair.
+\newblock In {\em Proceedings of the 36th International Conference on Software
+  Engineering}, ICSE 2014, pages 254--265, 2014.
+
+\bibitem{AE}
+W.~Weimer, Z.~Fry, and S.~Forrest.
+\newblock Leveraging program equivalence for adaptive program repair: Models
+  and first results.
+\newblock In {\em Automated Software Engineering (ASE), 2013 IEEE/ACM 28th
+  International Conference on}, pages 356--366, 2013.
+
+\bibitem{GenProg}
+W.~Weimer, T.~Nguyen, C.~Le~Goues, and S.~Forrest.
+\newblock Automatically finding patches using genetic programming.
+\newblock In {\em ICSE '09}, pages 364--374, 2009.
+
+\bibitem{wong1995reducing}
+W.~E. Wong and A.~P. Mathur.
+\newblock Reducing the cost of mutation testing: An empirical study.
+\newblock {\em Journal of Systems and Software}, 31(3):185--196, 1995.
+
+\bibitem{zhang2013faster}
+L.~Zhang, D.~Marinov, and S.~Khurshid.
+\newblock Faster mutation testing inspired by test prioritization and
+  reduction.
+\newblock In {\em Proc. ISSTA}, pages 235--245, 2013.
+
+\bibitem{zhang2013injecting}
+L.~Zhang, L.~Zhang, and S.~Khurshid.
+\newblock Injecting mechanical faults to localize developer faults for evolving
+  software.
+\newblock In {\em Proc. OOPSLA}, pages 765--784, 2013.
+
+\end{thebibliography}

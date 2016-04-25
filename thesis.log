@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013/Debian) (format=xelatex 2014.12.15)  25 APR 2016 17:01
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013/Debian) (format=xelatex 2014.12.15)  25 APR 2016 20:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1184,14 +1184,14 @@ Package caption Info: End \AtBeginDocument code.
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
 * h-part:(L,W,R)=(99.58464pt, 415.12572pt, 99.58464pt)
-* v-part:(T,H,B)=(99.58464pt, 595.8007pt, 99.58464pt)
+* v-part:(T,H,B)=(113.81102pt, 567.34795pt, 113.81102pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
 * \textwidth=415.12572pt
-* \textheight=595.8007pt
+* \textheight=567.34795pt
 * \oddsidemargin=27.31465pt
 * \evensidemargin=27.31465pt
-* \topmargin=-9.68535pt
+* \topmargin=4.54103pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -1252,37 +1252,44 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 [5
 
 ]
-二\ignorespaces 
-[6
 
-]
+Package Fancyhdr Warning: \headheight is too small (12.70874pt): 
+ Make it at least 12.78079pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[6] [7] [8] [9]
+二\ignorespaces 
+[10
+
+] [11]
 三\ignorespaces 
-[7
+[12
 
 ]
 四\ignorespaces 
-[8
+[13
 
 ]
 五\ignorespaces 
-[9
+[14
 
 ]
 六\ignorespaces 
-[10
+(./thesis.bbl [15
 
-] [11
+] [16
 
-] [12
+]) [17] [18
 
 ] (./thesis.aux) ) 
 Here is how much of TeX's memory you used:
- 20714 strings out of 493918
- 413744 string characters out of 6150562
- 447847 words of memory out of 5000000
- 23760 multiletter control sequences out of 15000+600000
- 11257 words of font info for 67 fonts, out of 8000000 for 9000
+ 20735 strings out of 493918
+ 414140 string characters out of 6150562
+ 455894 words of memory out of 5000000
+ 23776 multiletter control sequences out of 15000+600000
+ 11265 words of font info for 68 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  63i,10n,55p,10441b,302s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (13 pages).
+Output written on thesis.pdf (19 pages).
