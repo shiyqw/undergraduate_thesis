@@ -1,0 +1,172 @@
+\documentclass[nofonts]{ctexrep}
+\setCJKmainfont[ItalicFont={AR PL UKai CN}]{AR PL UMing CN} %设置中文默认字体
+\setCJKsansfont{WenQuanYi Micro Hei} %设置文泉驿正黑字体作为中文无衬线字体
+\setCJKmonofont{WenQuanYi Micro Hei Mono} %设置文泉驿等宽正黑字体作为中文打字机字体
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{bm}
+%\usepackage{titleps}
+%\usepackage{times}
+\usepackage{titlesec}
+\usepackage[labelsep=none]{caption, subcaption}
+%\setlength{\itemsep}{5mm}
+\usepackage{indentfirst}
+\usepackage{enumerate}
+%\usepackage{biblatex}
+%\usepackage{float}
+%\newcommand{\myfontsize}{\fontsize{13pt}{\baselineskip}\selectfont}
+\renewcommand{\bibname}{参考文献} 
+
+\usepackage{geometry}
+\geometry{left=3.5cm,right=3.5cm,top=3.5cm,bottom=3.5cm}
+
+%\titleformat{\chapter}[display] {\Huge\bfseries} {Chapter \thechapter} {1pc} {\vspace{1pc} \Huge}
+%\titleformat*{\section}{\LARGE\bf}
+%\titleformat*{\subsection}{\Large\bf}
+%\titleformat*{\subsubsection}{\large\bf}
+%\setmainfont{Times New Roman}
+%\captionsetup{font={scriptsize}}
+%\captionsetup{labelfont={scriptsize}}
+
+
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+%\fancyhead[EL, OL]{\leftmark}
+\fancyhead[ER, OR]{\leftmark}
+\fancyfoot[C]{\thepage}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\CTEXsetup[name={,}]{chapter}
+
+\begin{document}
+%\bibliographystyle{plain}
+\begin{titlepage}
+\begin{center}
+\LARGE
+
+\vspace{20mm}
+北京大学信息科学技术学院\\
+\vspace{5mm}
+本科生毕业论文\\
+\vspace{70mm}
+\textbf{\huge 变异测试的动态加速技术：设计与实现}\\
+\vspace{20mm}
+1200012741\\
+史杨勍惟\\
+\vspace{20mm}
+指导老师：熊英飞\\
+\vspace{10mm}
+(\today)
+\end{center}
+\end{titlepage}
+
+%\newpage
+%\newpage
+%\renewcommand{\baselinestretch}{1.2}
+%\Large
+
+% Done by 04/25
+\large
+\chapter*{摘要}
+变异测试是一种在通过细节改变源代码的软件测试方法，用来帮助测试者评估测试集的质量。变异测试一个很大的瓶颈在于其可扩展性。研究人员已经提出了各种不同的变异测试的加速技术，例如移除冗余的变异体等。然而，这些技术都是静态的，所以无法消除在变异体执行过程中的冗余部分。
+
+本论文的目标是设计一个变异测试的动态加速技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。基于此技术，本论文在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并将此工具与现有的加速技术进行了对比和验证。实验表明动态加速技术加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。\\
+
+\textbf{关键词：} 变异测试，动态加速，静态加速
+\chapter*{Abstract}
+Mutation analysis is used to help evaluating the quality of existing software tests by modifying a program in small ways. One important bottleneck of mutation analysis is its scability. Researches have proposed different techniques to accelerate the mutation analysis, such as removing redundant computations in mutation analysis. However, all these techniques are static, and thus cannot remove redundancy that occurs in part of mutant execution. 
+
+
+The purpose of this thesis is to design a technique to accelerate the mutation analysis dynamically, which analyzes the mutants during the execution of the program and forks the execution only when a mutant leads to a new system state. Based on this techinque, we developed an acceleration tool "AccMut" on C programming language on top of LLVM and compared it with other techniques. Our experiment show that our approach can accelerate mutation analysis significantly, having a speedup up to x.xxX over Major Framework, a state-of-the-art tools of static acceleration. \\
+
+\textbf{Keyword:} mutation analysis, dynamic acceleration, static acceleration
+\tableofcontents
+
+%\renewcommand{\baselinestretch}{2.0}
+%\large
+
+% Done by 04/25
+\chapter{引言}
+\section{变异测试}
+变异测试是什么？
+通常来说，变异测试包括，
+高阶变异测试。
+变异测试有许多应用场景。
+\section{变异测试的瓶颈}
+变异测试有一个重要的瓶颈，特别慢。
+更长远地说，影响可扩展性。
+\section{相关工作}
+已有一些加速技术
+\subsection{Mutation Schemata}
+\subsection{Weak Mutation}
+\subsection{Major Framework}
+图X显示了XXX
+现有的加速技术有一个共同的问题，都是基于静态分析的。
+\section{本论文的目的}
+本论文提出了动态变异测试的相关技术。纯动态的方式对程序进行分析。
+本论文对进行了复现和横向对比。
+在本科生科研阶段，我也尝试过，不同点。
+
+% Done by 04/27
+\chapter{ 变异测试的动态加速技术}
+\section{加速原理}
+不同的变异测试
+总的来说，通过动态的方法，加速了执行，X的阶段。
+图X是本算法的一个示例。
+\subsection{相关背景：系统调用Fork}
+XXX
+\section{抽象模型}
+此处将给出动态变异测试的核心算法，并将与静态变异测试的算法进行比较。
+\section{算法}
+\subsection{静态算法}
+\subsection{动态算法}
+\subsubsection{核心算法}
+\subsubsection{分类算法}
+
+% Done by 04/28
+\chapter{工具实现}
+选择C语言，
+LLVM上进行了实现。
+新增两个Pass，插桩，库，执行，图X
+\section{生成变异的Pass}
+\section{插桩的Pass}
+\section{动态分析算法的库}
+\section{文件IO的支持}
+
+% Done by 04/29
+\chapter{实验测试}
+\section{实验对象}
+\section{实验流程}
+\section{实验结果}
+
+% Done by 04/29
+\chapter{未来扩展：软件产品线测试}
+抄写熊老师
+
+% Done by 04/30
+\chapter{结论}
+重写一下Intro
+
+
+
+%\bibliography{bib.bib}
+\begin{thebibliography}{99}
+\addcontentsline{toc}{chapter}{Reference}
+\bibitem{korea}
+Florence Lowe-Lee, 
+``Is Korea Ready for the Demographic Revolution?''
+\newblock The KEI Exchange, 2009
+
+\end{thebibliography}
+%\addcontentsline{toc}{chapter}{List of Figures}
+%\listoffigures
+\chapter*{致谢}
+\addcontentsline{toc}{chapter}{致谢}
+\end{document}
+
+
+
+
