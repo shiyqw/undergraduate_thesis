@@ -63,7 +63,7 @@
 \vspace{5mm}
 本科生毕业论文\\
 \vspace{70mm}
-\textbf{\huge 变异测试的动态加速技术：设计与实现}\\
+\textbf{\huge 动态变异测试：设计与实现}\\
 \vspace{20mm}
 1200012741\\
 史杨勍惟\\
@@ -84,9 +84,9 @@
 \chapter*{摘要}
 变异测试是一种在通过细节改变源代码的软件测试方法，用来帮助测试者评估测试集的质量。变异测试一个很大的瓶颈在于其可扩展性。研究人员已经提出了各种不同的变异测试的加速技术，例如移除冗余的变异体等。然而，这些技术都是静态的，所以无法消除在变异体执行过程中的冗余部分。
 
-本论文的目标是设计一个变异测试的动态加速技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。基于此技术，本论文在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并将此工具与现有的加速技术进行了对比和验证。实验表明动态加速技术加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。\\
+本论文的目标是设计一个动态变异测试技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。基于此技术，本论文在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并将此工具与现有的加速技术进行了对比和验证。实验表明动态变异测试的加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。\\
 
-\textbf{关键词：} 变异测试，动态加速，静态加速
+\textbf{关键词：} 变异测试，动态分析
 \chapter*{Abstract}
 Mutation analysis is used to help evaluating the quality of existing software tests by modifying a program in small ways. One important bottleneck of mutation analysis is its scability. Researches have proposed different techniques to accelerate the mutation analysis, such as removing redundant computations in mutation analysis. However, all these techniques are static, and thus cannot remove redundancy that occurs in part of mutant execution. 
 
@@ -142,13 +142,13 @@ Test Prioritization~\cite{zhang2013faster}针对不同变异体对测试集中�
 \section{本论文的目标}
 以上的加速技术有一个共同的不足：它们都是静态加速的方式。任意给定两个变异体，在发生变异的变异点之前，这两个程序在同一个输入上的执行过程是完全相同的，而静态加速的方法无法消除程序执行过程中（图X的X部分）的冗余部分，导致这个过程被重复执行了两遍。
 
-本论文的目标是设计一个变异测试的动态加速技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。与静态加速技术不同，此动态加速技术从一个包含了所有变异体的程序开始执行，每遇到一个包含了变异体的语句，就对此语句以及所有的变异语句作动态分析，根据分析结果进行等价类划分。当且仅当有新的等价类诞生的时候（表示此变异体集合会产生新的系统状态），原程序会创建一个新的进程，在这个进程中执行新的等价类的变异体。这个方法是无损的，这个方法有以下两个优点：
+本论文的目标是设计一个动态变异测技术：在变异测试的执行过程中对变异体进行分析，仅在变异体产生新的系统状态的时刻创建新进程来执行变异体。与静态加速技术不同，此动态变异测试技术从一个包含了所有变异体的程序开始执行，每遇到一个包含了变异体的语句，就对此语句以及所有的变异语句作动态分析，根据分析结果进行等价类划分。当且仅当有新的等价类诞生的时候（表示此变异体集合会产生新的系统状态），原程序会创建一个新的进程，在这个进程中执行新的等价类的变异体。这个方法是无损的，这个方法有以下两个优点：
 \begin{itemize}
 \item 不同的变异体在变异点之前共享同一个执行过程，从而消除了执行过程中的冗余部分。从而节省了大量的执行时间。
 \item 此方法将所有变异整合到了同一个程序中，无需编译多次，这是Mutation Schemata的优点。在动态执行过程中可以根据即时的结果进行等价类的划分，复用等价变异体的执行，这是Major Framework的优点。所以此方法集合了现有的两大静态加速技术，进一步提升了加速比。
 \end{itemize}
 
-本论文定义了支持变异测试的抽象模型，并且在这个模型上给出了静态变异测试的算法，设计了动态变异测试的算法。我们在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并同时在LLVM的框架上复现了现有的加速工具（Schemata，Major Framework）用来进行横向对比和验证。实验表明动态加速技术加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。
+本论文定义了支持变异测试的抽象模型，并且在这个模型上给出了静态变异测试的算法，设计了动态变异测试的算法。我们在LLVM的框架上实现了一个C语言变异测试的加速工具AccMut，并同时在LLVM的框架上复现了现有的加速工具（Schemata，Major Framework）用来进行横向对比和验证。实验表明动态变异测试技术加速效果显著，加速比是Major Framework（目前最快的静态变异测试加速技术）的X倍。
 
 \section*{说明}
 我的本科生科研的课题也是变异测试的加速，本论文和本科生科研论文的主要区别在于等价类划分算法的实现和IO支持上。本科生科研时我采用的等价类划分使用的是复现的Major Framework的划分方法，而本论文则使用的是纯动态的自行设计的等价类划分方法；另一方面，本论文实现的工具已经支持下涉及读写独立的文件IO的程序，而在本科生科研实现的工具中并不支持。在实验的规模上，本论文也超出了本科生科研时后的规模。总的来说，本论文在本科生科研的成果上做了许多扩展和修改工作。
@@ -156,9 +156,9 @@ Test Prioritization~\cite{zhang2013faster}针对不同变异体对测试集中�
 % Done by 04/27 10+
 \chapter{方法}
 \section{加速原理}
-图X描述了我们的动态加速技术如何消除执行过程中的冗余过程。图中的每个圆圈代表了一个系统状态，数字相同的圆圈代表了相同的系统状态。箭头代表了在执行一句或者多句语句之后的系统状态的转换过程。在状态2，图中的三个变异体执行了三句不同的语句，是的系统状态转换为了两个不同的系统状态（状态3和状态5）。其中，虽然其中两个变异体（变异体1和变异体3）的语句是不同，但它们产生的结果是相同的，即转换后的系统状态是相同的。这是可能发生的，比如当$a==2$的时候，语句$a+=2$和语句$a*=2$执行后的效果是一样的。在状态3，变异体1和变异体3再次执行了不同的语句，而这次两个变异体执行的语句产生了不同的结果，转换后的系统状态不想同。所以，状态1，状态2，以及之前的一系列状态对于这三个变异体来说是完全相同的，这就导致了冗余的执行过程。同理，状态5以及之前的一系列状态对于变异体1和变异体3来说也是完全一样的，也是冗余的执行过程。根据重复度的不同，我们把冗余的执行过程标注成了黑色的或者是灰色的圆圈。
+图X描述了我们的动态变异测试技术如何消除执行过程中的冗余过程。图中的每个圆圈代表了一个系统状态，数字相同的圆圈代表了相同的系统状态。箭头代表了在执行一句或者多句语句之后的系统状态的转换过程。在状态2，图中的三个变异体执行了三句不同的语句，是的系统状态转换为了两个不同的系统状态（状态3和状态5）。其中，虽然其中两个变异体（变异体1和变异体3）的语句是不同，但它们产生的结果是相同的，即转换后的系统状态是相同的。这是可能发生的，比如当$a==2$的时候，语句$a+=2$和语句$a*=2$执行后的效果是一样的。在状态3，变异体1和变异体3再次执行了不同的语句，而这次两个变异体执行的语句产生了不同的结果，转换后的系统状态不想同。所以，状态1，状态2，以及之前的一系列状态对于这三个变异体来说是完全相同的，这就导致了冗余的执行过程。同理，状态5以及之前的一系列状态对于变异体1和变异体3来说也是完全一样的，也是冗余的执行过程。根据重复度的不同，我们把冗余的执行过程标注成了黑色的或者是灰色的圆圈。
 
-因为这三个变异体最终产生的系统状态是不同的，所以在它们的执行过程中，只有其中一部分使可以消除的，这就意味着任何静态加速技术无法消除这部分冗余的执行过程。相比之下，动态加速技术可以通过在执行过程中创建新进程的方法来复用这部分的重复执行。变异测试的动态执行方法从一个代表了所有变异体的主进程开始执行，如图X。在每个系统状态，我们检查在这个系统状态下所有变异体将要执行的语句。如果所有变异体将要执行的语句是一样的，那么我们就简单地执行这条语句；如果存在不同的可能需要执行的语句，那么我们就对不同的执行过程可能产生的结果进行分析，并且在需要的时刻创建新的进程。在状态2，三个变异体有三个不同的语句需要执行，所以我们需要分析H、这三条语句可能产生的执行结果。
+因为这三个变异体最终产生的系统状态是不同的，所以在它们的执行过程中，只有其中一部分使可以消除的，这就意味着任何静态加速技术无法消除这部分冗余的执行过程。相比之下，动态变异测试技术可以通过在执行过程中创建新进程的方法来复用这部分的重复执行。变异测试的动态执行方法从一个代表了所有变异体的主进程开始执行，如图X。在每个系统状态，我们检查在这个系统状态下所有变异体将要执行的语句。如果所有变异体将要执行的语句是一样的，那么我们就简单地执行这条语句；如果存在不同的可能需要执行的语句，那么我们就对不同的执行过程可能产生的结果进行分析，并且在需要的时刻创建新的进程。在状态2，三个变异体有三个不同的语句需要执行，所以我们需要分析这三条语句可能产生的执行结果。
 
 分析过程中，我们依次模拟执行每条语句并且收集它们的结果。根据不同地结果，我们将这些变异体划分成不同的等价类。两个变异体在个系统状态是等价的当且仅当这两个变异体在这个系统状态下所需要执行的语句是一样的或者这两个变异体在这个系统状态下所执行的语句产生的结果是一样的。例如，状态2下，变异体1和变异体3虽然执行的语句不一样，但是产生的结果是一样的，那么变异体1和变异体3在状态2下就被认为是等价的，归入同一个等价类。
 
@@ -183,7 +183,7 @@ POSIX系统调用fork()通过``写时拷贝''机制来实现：当fork()被调�
 \newcommand{\VectorSet}{{\tt VectorSet}\xspace}
 \newcommand{\ListSet}{{\tt ListSet}\xspace}
 \newcommand{\DefaultSet}{{\tt DefaultSet}\xspace}
-为了更好地支持不同种类的变异算子，尤其是一阶和高阶的变异算子，我们定义了一个基础结构的抽象模型来支持变异测试的动态加速技术。这样做的好处在于，当变异算子发生改变的时候，我们只需要修改抽象模型的实现就可以了，而不需要修改整个抽象模型。
+为了更好地支持不同种类的变异算子，尤其是一阶和高阶的变异算子，我们定义了一个基础结构的抽象模型来支持动态变异测试技术。这样做的好处在于，当变异算子发生改变的时候，我们只需要修改抽象模型的实现就可以了，而不需要修改整个抽象模型。
 
 \subsection{变异过程的抽象模型}
 
@@ -230,100 +230,119 @@ $\try(s, c)$操作在系统状态$s$下执行语句块$c$，并返回一个系�
 
 \textbf{说明：}这里我们认为在一个位置的语句块的中间不会有跳转指令，即语句块是顺序执行的一块。如果语句块中存在跳转指令，如while或者if，那么我们以可能发生跳转的节点为边界，将其分为两个位置。
 
-
-此处将给出动态变异测试的核心算法，并将与静态变异测试的算法进行比较。
+为了更高效地实现动态变异测试技术，我们定义了以下两个方法：
+\begin{itemize}
+\item $\filterv(V, I)$. 这个方法基于一个变异号集合，从一个位变异集合中筛选出一个子集，这个子集中的每个位变异的变异号集合中至少出现一个$I$中的变异号，即将$V$ 更新为$\left\{v\mid v\in V \wedge v.\mids
+  \cap I \neq \emptyset \right\}$.这些位变异是从同一个位置（location）映射过来的。
+  
+\item
+  $\mathit{\filterm(I, V)}$.
+这个方法基于一个位变异集合，从一个变异号集合中筛选出一个子集，这个子集中的每个变异号都至少出现在其中一个位变异的变异号集合中，即将$I$更新为$\left\{i\mid i\in I \wedge \exists v
+    \in V. i \in v.\mids \right\}$。同样地，这些位变异是从同一个位置映射过来的
+\item
+  $\mathit{\filterom(I, V)}=\left\{i\mid i\in I \wedge
+     \forall v \in V. i \notin v.\mids \right\}$.
+  This operation is just the opposite of {\it filter\_mutants},
+  filtering out only the mutants containing one of the variant and
+  leaving the rest.
+  
+\end{itemize}
+接下来将在这个抽象模型上给出动态变异测试的核心算法，并将与静态变异测试的算法进行比较。
 \section{算法}
 \subsection{静态算法}
+基于抽象模型，我们首先给出传统静态变异测试的算法（算法X）。
+
+给定系统中所有变异体的变异号，静态变异测试的算法逐一执行每个变异体（第1行）。每个变异体的执行可以看做是一系列的系统状态的转换知道没有需要执行的语句块（第3行）。在每个系统转换过程中，系统根据此刻的变异号选择相应的位变异（第4行），然后执行这个位变异的语句（第5行）。最后通过调用save$(s,i)$将执行过程中所需要的信息记录起来（第7行）。
+
+\textbf{说明:}以上算法通过解释器可以高效地实现。当我们使用编译器实现时，可以首先通过一次插桩把变异算子$p$可能生成的所有位变异插入原始程序中，并通过命令行参数或者宏来控制当前执行的变异体，Mutation Schemata是基于这个原理实现了算法X。
 
 \begin{algorithm}[t]
-  \KwIn{$p$: a mutation procedure}
-  \KwData{$s$: the current system state}
-  \For{each mutant ID $i$ in all mutant IDs}{
-    $s \leftarrow$ the initial system state\\
+  \KwIn{$p$: 变异算子}
+  \KwData{$s$: 现在的系统状态}
+  \For{变异号集合中的每个变异号 $i$ }{
+    $s \leftarrow$ 系统初始状态\\
     \While{$\phi(s) \neq \bot$}{
       $\{v\} \leftarrow \filterv(p(\phi(s)), \{i\})$
       $\execute(v.code, s)$
     }
     {save}$(s, i)$
   }
-\caption{Static Mutation Analysis (with Mutant Schemata)}
+\caption{静态变异测试算法}
 \label{alg:static}
 
 \end{algorithm}
+和静态变异测试不同，动态变异测试从一个代表了所有变异体的进程开始，当切仅当遇到某个变异体改变了原有的系统状态的时候才创建新的进程。算法X展示了动态变异测试的主循环，这里我们可以看到三个动态变异测试和静态变异测试不一样的地方。
+\begin{enumerate}
+\item
+在测试的一开始，变异号集合$I$包含了所有的变异号。
+\item
+在所有变异体执行结束的时候，我们用一个循环逐一统计每个变异体的结果和信息。
+\item
+exceed()函数被换成了proceed()函数，proceed()函数除了负责系统状态的转换，还负责新进程的创建。
+\end{enumerate}
 
+动态变异测试的核心算法是proceed()函数（算法X）。首先如果这个位置只有一个位变异需要之星，那么我们就直接执行然后返回（第2-6行）。否则，我们首先尝试执行每个位变异的语句块，然后根据尝试执行的结果对这些位变异进行等价类的划分（第7-11行）。这里，同一个等价类中的不同的位变异的语句块在当前系统状态下执行后的系统状态是一样的。如果划分结果为当前有多个等价类，那么我们为其中随机选出一个等价类（第12行），并且为剩下的等价类创建新的进程（第13-15行）。创建出的每个进程都代表了一个等价类（第17行），我们从这个等价类中随机选出一个位变异，执行它的语句块，更新系统状态（第18-19行）。最后，由于原进程本身也代表了一个等价类，所以我们对原进程进行同样的操作（第24-27行）。
+
+如果划分出的等价类特别多，那么我们就需要同时创建出很多个新进程。从操作系统的角度来看，过多的进程数会给操作系统带来调度的负担，因此我们需要限制创建的进程数。为了简化进程并行的管理，在我们的算法中，我们选择限制同时运行的进程数为1，这意味着父进程在创建完子进程后会挂起等待子进程结束后再继续执行。我们使用waitpid()系统调用限制进程数（第21行），这个系统调用会挂起父进程知道子进程结束后才继续。为了防止子进程有时可能不会终止（例如变异引发了无限循环等），我们在创建子进程的时候设置了一个计时器，当子进程执行的CPU时间超过了某个阈值的时候，我们强制终止子进程。
+
+\textbf{说明：}这里将进程数限制为1并不意味着完全放弃并行执行。在一些支持并行的体系结构上，动态变异测试可以在测试用例级别并行执行，即每个进程代表的输入为测试集中的一个测试用例，这样在限制创建出新进程数量的同时，我们也可以利用并行提高动态变异测试的执行效率。
+
+同时可以注意到，这个动态变异测试的算法已经包括了Mutation Schemata和Major Framework的加速部分。我们的程序也可以痛过插桩将不同的位变异插入到原程序中，所以也只需要编译一次；在process()的第11行，我们通过try的结果进行等价类的划分，这就是Major Framework的加速技术。
+
+\subsection{动态算法}
 \begin{algorithm}[t]
-  \KwIn{$p$: a mutation procedure}
-  \KwData{$s$: the current system state}
-  \KwData{$I$: a set of mutant IDs represented by the current process}
-  $I \leftarrow$ all mutant IDs\\
-  $s \leftarrow$ the initial system state\\
+  \KwIn{$p$: 变异算子}
+  \KwData{$s$: 现在的系统状态}
+  \KwData{$I$: 当前进程所代表的变异号集合}
+  $I \leftarrow$ 所有的变异号的集合\\
+  $s \leftarrow$ 系统的初始状态\\
   \While{$\phi(s) \neq \bot$}{
     {proceed}$(p(\phi(s)))$
   }
   \For{$i \in I$}{
     {save}$(s, i)$
   }  
-\caption{Main Loop of Dynamic Mutation Analysis}
+\caption{动态变异测试的主循环}
 \label{alg:main}
 \end{algorithm}
 
-\subsection{动态算法}
-\subsubsection{核心算法}
-\begin{algorithm}
-  \KwIn{$V$: a set of variants at current location}
-  \KwData{$s$: the current system state}
-  \KwData{$I$: a set of mutation IDs represented by the current process}
-  ${\filterv}(V, I)$\\
-  $v_{cur} \leftarrow$ a random element in $V$\\
-  \For{each $v$ in $V - \{v_{cur}\}$}{
-    $pid \leftarrow$ fork()\\
-    \eIf{pid = 0}{\tcp{Child process}
-      $\filterm(I, \{v\})$\\
-      $\execute(v.code$)
-    } {\tcp{Parent process}
-      $\filterom(I, \{v\})$\\
-    }
-  }
-  $\execute(v_{cur}.code$)
-\caption{Basic Forking of proceed($s$)}
-\label{alg:basic}
-\end{algorithm}
-
 \begin{algorithm}[t]
-  \KwIn{$V$: a set of variants at current location}
-  \KwData{$s$: the current system state}
-  \KwData{$I$: a set of mutation IDs represented by the current process}
+  \KwIn{$V$: 当前位置所映射的位变异集合}
+  \KwData{$s$: 当前的系统状态}
+  \KwData{$I$: 当前进程所代表的变异号集合}
   ${\filterv}(V, I)$\\
   \If{|V| = 1}{
-    $v \leftarrow$ the only variant in $V$\\
+    $v \leftarrow$ $V$中唯一的位变异\\
     \execute(v.code, s)\\
     \Return
   }
   $X = \emptyset$\\
-  \For{each $v$ in $V$}{
+  \For{$V$中的每个位变异$v$}{
     $X \leftarrow X \cup \{\try(v.code, s)\}$
   }
-  $\mathbb{X} \leftarrow$ group changes in $X$ into equivalent classes\\
-  $X_{cur} \leftarrow$ any one of the equivalent classes in $\mathbb{X}$\\
-  \For{each equivalence class $X$ in $\mathbb{X} - \{X_{cur}\}$}{
-    $V \leftarrow$ the variants corresponding to changes in $X$\\
+  $\mathbb{X} \leftarrow$ 将$X$划分成等价类\\
+  $X_{cur} \leftarrow$ $\mathbb{X}$中的任意一个等价类\\
+  \For{$\mathbb{X} - \{X_{cur}\}$中的每个等价类$X$}{
+    $V \leftarrow$ $X$中的任意一个改变所对应的位变异\\
     $pid \leftarrow$ fork()\\
-    \eIf{pid = 0}{\tcp{Child process}
+    \eIf{pid = 0}{\tcp{子进程}
       $\filterm(I, V)$\\
-      $x \leftarrow$ a random change in $X$\\
+      $x \leftarrow$ $X$中的任意一个为变异的改变\\
       $\apply(x, s)$
-    } {\tcp{Parent process}
-      $\filterom(I, V)$\\
+    } {\tcp{父进程}
+      waitpid($pid$)\\
     }
   }
-  $x \leftarrow$ a random change in $X_{cur}$\\
+  $V \leftarrow$ $X_{cur}$中的任意一个位变异\\
+  $\filterm(I, V)$\\ 
+  $x \leftarrow$ $X_{cur}$中的任意一个位变异的改变\\
   $\apply(x, s)$
-\caption{Adding Equivalence Analysis to proceed($s$)}
+\caption{proceed($s$)算法}
 \label{alg:advanced}
 \end{algorithm}
 
 
-\subsubsection{一阶变异算子的分类算法}
+\subsection{一阶变异算子的分类算法}
 
 
 \begin{algorithm}
@@ -365,25 +384,63 @@ $\try(s, c)$操作在系统状态$s$下执行语句块$c$，并返回一个系�
 \subsection{算法分析}
 \subsubsection{算法的正确性}
 \subsubsection{算法的复杂度}
+
 % Done by 04/28 4
 \chapter{工具实现} 
-选择C语言，
-LLVM上进行了实现。
-新增两个Pass，插桩，库，执行，图X
+由于我们使用的是POSIX系统fork()，所以我们所实现的工具所针对的是C语言程序的变异测试。我们的实现是基于clang+LLVM的。其中，clang是编译器前端，将C语言编译成LLVM的IR，而LLVM是一个被广泛使用的编译器后端框架，将LLVM的IR编译成可执行的程序。我们设计的变异算子是LLVM的IR级别的变异，因为LLVM的IR是静态单赋值代码，在IR上实现变异算子比在源码级别实现方便很多。
+
+具体的实现细节上，我们首先用C语言设计了一个动态分析算法的库，这个库的主要作用是在动态分析的过程中应用动态变异测试算法。同时，我们在LLVM上设计了新的Pass。每个Pass可以看做是编译器后端的一个步骤，这个步骤会遍历IR码并且根据IR码上的信息进行相关的操作。我们一共为动态变异测试设计了两个Pass，第一个Pass是根据已经设定好的变异算子生成相关的变异体信息，第二个Pass是根据这些变异体信息在指定的位置修改IR码，插入库调用语句。
+
 \section{生成变异的Pass}
+我们设计的变异算子有XX
+
+在这个Pass中，访问源码，如果有符号，添加信息。
+
+我们用一个文件记录信息
+
 \section{插桩的Pass}
+根据文件扫，发现了，替换
+根据不同的类型，替换不同的库调用
+
 \section{动态分析算法的库}
+入口为process函数
+为整个的实现和包装
+不同数据类型的处理。
+
 \section{文件IO的支持}
+不支持的。
+
+现在的解决办法：映射
+
+缺点：
+
+理想的解决办法：写时拷贝
 
 % Done by 04/29 4
 \chapter{实验测试}
 \section{实验对象}
+SIR
+\section{Major Framework的复现}
+选择了Major Framework和 MS
+
+MS不用复现
 \section{实验流程}
+XXX
 \section{实验结果}
+表
+
+分析
+
+1,2,3
 
 % Done by 04/29 3~4
 \chapter{未来扩展：软件产品线测试}
 抄写熊老师
+
+一段背景
+
+\section{动态软件产品线测试技术}
+一段应用
 
 % Done by 04/30 1
 \chapter{结论}

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013/Debian) (format=xelatex 2014.12.15)  27 APR 2016 01:24
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (TeX Live 2013/Debian) (format=xelatex 2014.12.15)  28 APR 2016 01:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1347,35 +1347,28 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 2.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [3
-
-])
+))
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
 
+ [3
 
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 12.70874pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[4]
+]
 一\ignorespaces 
-[5
+[4
 
 ]
 
-Package Fancyhdr Warning: \headheight is too small (12.70874pt): 
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 12.78079pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[6] [7] [8] [9]
+[5] [6] [7] [8]
 二\ignorespaces 
-[10
+[9
 
-] [11] [12]
+] [10] [11]
 *************************************************
 * fontspec warning: "script-not-exist-latn"
 * 
@@ -1415,38 +1408,50 @@ LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 200
 .
 (/usr/share/texlive/texmf-dist/tex/latex/euenc/eu1lmtt.fd
 File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [13] [14]
+) [12] [13] [14]
+[15]
 
-LaTeX Warning: Float too large for page by 17.58987pt on input line 323.
+LaTeX Warning: Float too large for page by 58.16539pt on input line 342.
 
-[15] [16] [17] [18]
+[16] [17] [18] [19]
 三\ignorespaces 
-[19
-
-]
-四\ignorespaces 
 [20
 
 ]
+
+Package Fancyhdr Warning: \headheight is too small (12.78079pt): 
+ Make it at least 12.79108pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[21]
+四\ignorespaces 
+[22
+
+]
 五\ignorespaces 
-[21
+[23
 
 ]
 六\ignorespaces 
-(./thesis.bbl [22
+(./thesis.bbl [24
 
-] [23
+] [25
 
-]) [24] [25
+]) [26] [27
 
-] (./thesis.aux) ) 
+] (./thesis.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
 Here is how much of TeX's memory you used:
- 23699 strings out of 493918
- 458685 string characters out of 6150562
- 531638 words of memory out of 5000000
+ 23707 strings out of 493918
+ 458782 string characters out of 6150562
+ 532593 words of memory out of 5000000
  26656 multiletter control sequences out of 15000+600000
- 16965 words of font info for 102 fonts, out of 8000000 for 9000
+ 17013 words of font info for 108 fonts, out of 8000000 for 9000
  1144 hyphenation exceptions out of 8191
  63i,17n,55p,10441b,551s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on thesis.pdf (26 pages).
+Output written on thesis.pdf (28 pages).
