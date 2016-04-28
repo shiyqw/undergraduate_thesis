@@ -1,37 +1,43 @@
-\contentsline {chapter}{\numberline {一\ignorespaces \hspace {0.3em}}引言}{4}
-\contentsline {section}{\numberline {1.1}变异测试}{4}
-\contentsline {section}{\numberline {1.2}变异测试的瓶颈}{5}
-\contentsline {section}{\numberline {1.3}相关工作}{5}
-\contentsline {subsection}{\numberline {1.3.1}Weak Mutation}{5}
-\contentsline {subsection}{\numberline {1.3.2}Mutation Sampling}{5}
-\contentsline {subsection}{\numberline {1.3.3}Major Framework}{5}
-\contentsline {subsection}{\numberline {1.3.4}Mutation Schemata}{6}
-\contentsline {subsection}{\numberline {1.3.5}Test Prioritization}{6}
-\contentsline {section}{\numberline {1.4}本论文的目标}{6}
-\contentsline {chapter}{\numberline {二\ignorespaces \hspace {0.3em}}方法}{9}
-\contentsline {section}{\numberline {2.1}加速原理}{9}
-\contentsline {subsection}{\numberline {2.1.1}相关背景：系统调用fork()}{11}
-\contentsline {section}{\numberline {2.2}抽象模型}{11}
-\contentsline {subsection}{\numberline {2.2.1}变异过程的抽象模型}{12}
-\contentsline {subsection}{\numberline {2.2.2}程序执行过程的抽象模型}{13}
-\contentsline {section}{\numberline {2.3}算法}{14}
-\contentsline {subsection}{\numberline {2.3.1}静态算法}{14}
-\contentsline {subsection}{\numberline {2.3.2}动态算法}{16}
-\contentsline {subsection}{\numberline {2.3.3}一阶变异算子的分类算法}{16}
-\contentsline {subsection}{\numberline {2.3.4}算法分析}{16}
-\contentsline {subsubsection}{算法的正确性}{16}
-\contentsline {subsubsection}{算法的复杂度}{16}
-\contentsline {chapter}{\numberline {三\ignorespaces \hspace {0.3em}}工具实现}{20}
-\contentsline {section}{\numberline {3.1}生成变异的Pass}{20}
-\contentsline {section}{\numberline {3.2}插桩的Pass}{21}
-\contentsline {section}{\numberline {3.3}动态分析算法的库}{21}
-\contentsline {section}{\numberline {3.4}文件IO的支持}{21}
-\contentsline {chapter}{\numberline {四\ignorespaces \hspace {0.3em}}实验测试}{22}
-\contentsline {section}{\numberline {4.1}实验对象}{22}
-\contentsline {section}{\numberline {4.2}Major Framework的复现}{22}
-\contentsline {section}{\numberline {4.3}实验流程}{22}
-\contentsline {section}{\numberline {4.4}实验结果}{22}
-\contentsline {chapter}{\numberline {五\ignorespaces \hspace {0.3em}}未来扩展：软件产品线测试}{23}
-\contentsline {section}{\numberline {5.1}动态软件产品线测试技术}{23}
-\contentsline {chapter}{\numberline {六\ignorespaces \hspace {0.3em}}结论}{24}
-\contentsline {chapter}{致谢}{27}
+\contentsline {chapter}{\numberline {一\ignorespaces \hspace {0.3em}}引言}{5}
+\contentsline {section}{\numberline {1.1}变异测试}{5}
+\contentsline {section}{\numberline {1.2}变异测试的瓶颈}{6}
+\contentsline {section}{\numberline {1.3}相关工作}{6}
+\contentsline {subsection}{\numberline {1.3.1}Weak Mutation}{6}
+\contentsline {subsection}{\numberline {1.3.2}Mutation Sampling}{6}
+\contentsline {subsection}{\numberline {1.3.3}Major Framework}{6}
+\contentsline {subsection}{\numberline {1.3.4}Mutation Schemata}{7}
+\contentsline {subsection}{\numberline {1.3.5}Test Prioritization}{7}
+\contentsline {section}{\numberline {1.4}本论文的目标}{7}
+\contentsline {chapter}{\numberline {二\ignorespaces \hspace {0.3em}}方法}{10}
+\contentsline {section}{\numberline {2.1}加速原理}{10}
+\contentsline {subsection}{\numberline {2.1.1}相关背景：系统调用fork()}{12}
+\contentsline {section}{\numberline {2.2}抽象模型}{13}
+\contentsline {subsection}{\numberline {2.2.1}变异过程的抽象模型}{13}
+\contentsline {subsection}{\numberline {2.2.2}程序执行过程的抽象模型}{14}
+\contentsline {section}{\numberline {2.3}算法}{15}
+\contentsline {subsection}{\numberline {2.3.1}静态算法}{15}
+\contentsline {section}{\numberline {2.4}动态算法}{16}
+\contentsline {subsubsection}{动态算法的正确性}{18}
+\contentsline {subsection}{\numberline {2.4.1}一阶变异算子的筛选算法}{18}
+\contentsline {subsubsection}{复杂度分析}{21}
+\contentsline {chapter}{\numberline {三\ignorespaces \hspace {0.3em}}工具实现:AccMut}{24}
+\contentsline {section}{\numberline {3.1}变异算子的设计}{24}
+\contentsline {section}{\numberline {3.2}实现细节}{25}
+\contentsline {subsection}{\numberline {3.2.1}变异Pass}{25}
+\contentsline {subsection}{\numberline {3.2.2}插桩Pass}{26}
+\contentsline {subsection}{\numberline {3.2.3}动态分析算法库}{26}
+\contentsline {section}{\numberline {3.3}文件IO的支持}{26}
+\contentsline {chapter}{\numberline {四\ignorespaces \hspace {0.3em}}实验测试}{27}
+\contentsline {section}{\numberline {4.1}性能预测}{27}
+\contentsline {subsection}{\numberline {4.1.1} 运行时的额外开销}{27}
+\contentsline {subsection}{\numberline {4.1.2} 节省的重复计算}{28}
+\contentsline {subsection}{\numberline {4.1.3}超时变异体的影响}{28}
+\contentsline {section}{\numberline {4.2}实验对象}{29}
+\contentsline {section}{\numberline {4.3}Major Framework的复现}{30}
+\contentsline {section}{\numberline {4.4}实验流程}{31}
+\contentsline {section}{\numberline {4.5}实验结果}{31}
+\contentsline {section}{\numberline {4.6}有效度的威胁因素分析}{32}
+\contentsline {chapter}{\numberline {五\ignorespaces \hspace {0.3em}}未来扩展：软件产品线测试}{33}
+\contentsline {section}{\numberline {5.1}动态软件产品线测试技术}{33}
+\contentsline {chapter}{\numberline {六\ignorespaces \hspace {0.3em}}结论}{34}
+\contentsline {chapter}{致谢}{37}
