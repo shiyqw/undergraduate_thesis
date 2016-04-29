@@ -37,7 +37,7 @@
 \contentsline {section}{\numberline {4.4}实验流程}{31}
 \contentsline {section}{\numberline {4.5}实验结果}{31}
 \contentsline {section}{\numberline {4.6}有效度的威胁因素分析}{32}
-\contentsline {chapter}{\numberline {五\ignorespaces \hspace {0.3em}}未来扩展：软件产品线测试}{33}
-\contentsline {section}{\numberline {5.1}动态软件产品线测试技术}{33}
-\contentsline {chapter}{\numberline {六\ignorespaces \hspace {0.3em}}结论}{34}
-\contentsline {chapter}{致谢}{37}
+\contentsline {chapter}{\numberline {五\ignorespaces \hspace {0.3em}}扩展：软件产品线测试}{33}
+\contentsline {section}{\numberline {5.1}动态软件产品线测试技术}{34}
+\contentsline {chapter}{\numberline {六\ignorespaces \hspace {0.3em}}结论}{37}
+\contentsline {chapter}{致谢}{40}
